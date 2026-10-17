@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -10,9 +12,8 @@ public class Main {
         library.add(new Book("The Hobbit", "J. R. R. Tolkien", 28, 310));
         Scanner scanner = new Scanner(System.in);
 
-        boolean run =true;
+        boolean run = true;
         while (run) {
-
 
             System.out.println("------Menu------");
             System.out.println("1. All books of a certain author");
@@ -21,7 +22,7 @@ public class Main {
             System.out.println("4. The most expensive book");
             System.out.println("5. Books with a given minimum number of pages");
             System.out.println("6. 2 books that fit the budget of a client");
-            System.out.println("Choose an option: ");
+            System.out.print("Choose an option: ");
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
@@ -32,8 +33,19 @@ public class Main {
                         System.out.println(title);
                     }
                     break;
+                case 2:
+                    List<String> titles = new ArrayList<>();
+                    while (true) {
+                        String text = scanner.nextLine();
+                        if (text.isEmpty()) {
+                            break;
+                        }
+                        titles.add(text);
+                    }
+                    System.out.println(library.averagePageNumber(titles));
+                    break;
                 case 0:
-                    run=false;
+                    run = false;
                     break;
             }
         }

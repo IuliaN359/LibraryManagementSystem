@@ -23,5 +23,16 @@ public class Library {
         return authorsBooks;
     }
 
-
+    public double averagePageNumber(List<String> titles){
+        if (titles.isEmpty())
+            return 0.0;
+        int pagesSum=0;
+        for (Book book : books){
+            if (titles.contains(book.getTitle())){
+                pagesSum+= book.getNumberOfPages();
+            }
+        }
+        double average=(double)pagesSum/titles.size();
+        return Math.round(average*100.0)/100.0;
+    }
 }
