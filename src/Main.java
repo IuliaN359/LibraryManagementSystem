@@ -27,7 +27,7 @@ public class Main {
             scanner.nextLine();
             switch (option) {
                 case 1:
-                    System.out.print("Author: ");
+                    System.out.print("Autor: ");
                     String author = scanner.nextLine();
                     for (String title : library.authorsBooks(author)) {
                         System.out.println(title);
@@ -44,6 +44,12 @@ public class Main {
                     }
                     System.out.println(library.averagePageNumber(titles));
                     break;
+                case 3:
+                    System.out.print("Maximaler Preis: ");
+                    double price=scanner.nextDouble();
+                    for (String title : library.filterBooks(price)) {
+                        System.out.println(title);
+                    }
                 case 0:
                     run = false;
                     break;

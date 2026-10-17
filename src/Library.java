@@ -35,4 +35,14 @@ public class Library {
         double average=(double)pagesSum/titles.size();
         return Math.round(average*100.0)/100.0;
     }
+
+    public List<String> filterBooks(double price){
+        List<String> withinPrice=new ArrayList<>();
+        for (Book book : books){
+            if (book.getPrice()<=price){
+                withinPrice.add(book.getTitle());
+            }
+        }
+        return withinPrice;
+    }
 }
