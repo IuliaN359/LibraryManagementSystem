@@ -50,6 +50,17 @@ public class Main {
                     for (String title : library.filterBooks(price)) {
                         System.out.println(title);
                     }
+                case 4:
+                    titles = new ArrayList<>();
+                    while (true) {
+                        String text = scanner.nextLine();
+                        if (text.isEmpty()) {
+                            break;
+                        }
+                        titles.add(text);
+                    }
+                    System.out.println(library.mostExpensive(titles));
+                    break;
                 case 0:
                     run = false;
                     break;

@@ -45,4 +45,19 @@ public class Library {
         }
         return withinPrice;
     }
+
+    public String mostExpensive(List<String> titles){
+        double max=0;
+        String title = "";
+        for (Book book : books){
+            if(titles.contains(book.getTitle())){
+                if(book.getPrice()>max){
+                    max=book.getPrice();
+                    title=book.getTitle();
+                }
+            }
+        }
+        return title;
+    }
+
 }
