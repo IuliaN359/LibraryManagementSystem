@@ -47,6 +47,8 @@ public class Library {
     }
 
     public String mostExpensive(List<String> titles){
+        if(titles.isEmpty())
+            return "0";
         double max=0;
         String title = "";
         for (Book book : books){
@@ -60,4 +62,13 @@ public class Library {
         return title;
     }
 
+    public List<String> minimumNumberOfPages(int numberOfPages){
+        List<java.lang.String> withMinimumPages=new ArrayList<>();
+        for (Book book : books){
+            if (book.getNumberOfPages()>=numberOfPages){
+                withMinimumPages.add(book.getTitle());
+            }
+        }
+        return withMinimumPages;
+    }
 }

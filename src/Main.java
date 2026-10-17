@@ -50,6 +50,7 @@ public class Main {
                     for (String title : library.filterBooks(price)) {
                         System.out.println(title);
                     }
+                    break;
                 case 4:
                     titles = new ArrayList<>();
                     while (true) {
@@ -61,9 +62,18 @@ public class Main {
                     }
                     System.out.println(library.mostExpensive(titles));
                     break;
+                case 5:
+                    System.out.print("Mindestanzahl: ");
+                    int numberOfPages=scanner.nextInt();
+                    for (String title : library.minimumNumberOfPages(numberOfPages)) {
+                        System.out.println(title);
+                    }
+                    break;
                 case 0:
                     run = false;
                     break;
+                default:
+                    System.out.println("Invalid option4");
             }
         }
     }
