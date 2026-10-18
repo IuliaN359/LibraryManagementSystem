@@ -5,6 +5,10 @@ import java.util.Objects;
 public class Library {
     private List<Book> books;
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
     public Library() {
         books = new ArrayList<>();
     }
@@ -13,83 +17,87 @@ public class Library {
         books.add(book);
     }
 
-    public List<String> authorsBooks(String author) {
-        List<String> authorsBooks = new ArrayList<>();
+    public List<Book> authorsBooks(String author) {
+        List<Book> authorsBooks = new ArrayList<>();
         for (Book book : books) {
             if (Objects.equals(book.getAuthor(), author)) {
-                authorsBooks.add(book.getTitle());
+                authorsBooks.add(book);
             }
         }
         return authorsBooks;
     }
 
-    public double averagePageNumber(List<String> titles) {
-        if (titles.isEmpty())
+    public double averagePageNumber(List<Book> bookList) {
+        if (bookList.isEmpty())
             return 0.0;
         int pagesSum = 0;
-        for (Book book : books) {
-            if (titles.contains(book.getTitle())) {
+        for (Book book : bookList) {
                 pagesSum += book.getNumberOfPages();
-            }
         }
-        double average = (double) pagesSum / titles.size();
+        double average = (double) pagesSum / bookList.size();
         return Math.round(average * 100.0) / 100.0;
     }
 
-    public List<String> filterBooks(double price) {
-        List<String> withinPrice = new ArrayList<>();
-        for (Book book : books) {
+    public List<Book> filterBooksByPrice(List<Book> bookList, int price) {
+        List<Book> withinPrice = new ArrayList<>();
+        if(bookList==null){
+            return withinPrice;
+        }
+        for (Book book : bookList) {
             if (book.getPrice() <= price) {
-                withinPrice.add(book.getTitle());
+                withinPrice.add(book);
             }
         }
         return withinPrice;
     }
 
-    public String mostExpensive(List<String> titles) {
-        if (titles.isEmpty())
-            return "0";
-        double max = 0;
-        String title = "";
-        for (Book book : books) {
-            if (titles.contains(book.getTitle())) {
-                if (book.getPrice() > max) {
-                    max = book.getPrice();
-                    title = book.getTitle();
-                }
+    public Book mostExpensive(List<Book> bookList) {
+        if (bookList.isEmpty()){
+            return null;
+        }
+        Book mostExpensiveBook=bookList.get(0);
+        for(int i=1;i<bookList.size();i++){
+            Book current =bookList.get(i);
+            if(current.getPrice()>mostExpensiveBook.getPrice()){
+                mostExpensiveBook=current;
             }
         }
-        return title;
+        return mostExpensiveBook;
     }
 
-    public List<String> minimumNumberOfPages(int numberOfPages) {
-        List<java.lang.String> withMinimumPages = new ArrayList<>();
-        for (Book book : books) {
+    public List<Book> minimumNumberOfPages(List<Book> bookList, int numberOfPages) {
+        List<Book> withMinimumPages=new ArrayList<>();
+        if(bookList==null){
+            return withMinimumPages;
+        }
+        for (Book book : bookList) {
             if (book.getNumberOfPages() >= numberOfPages) {
-                withMinimumPages.add(book.getTitle());
+                withMinimumPages.add(book);
             }
         }
         return withMinimumPages;
     }
 
-    public List<Book> validBooks(double price) {
+    public List<Book> validBooks(List<Book> bookList, int price) {
+        List<Book> chosenBooks=new ArrayList<>();
+        if(bookList==null || bookList.size()<2)
+            return chosenBooks;
         Book firstBook=null;
         Book secondBook=null;
-        double max = -1;
-        for (int i = 0; i < books.size() - 1; i++) {
-            for (int j = i + 1; j < books.size(); j++) {
-                double sum = books.get(i).getPrice() + books.get(j).getPrice();
+        int max = -1;
+        for (int i = 0; i < bookList.size() - 1; i++) {
+            for (int j = i + 1; j < bookList.size(); j++) {
+                int sum = bookList.get(i).getPrice() + bookList.get(j).getPrice();
                 if (sum <= price) {
-                    if (sum > max || (sum == max && firstBook.getNumberOfPages() + secondBook.getNumberOfPages() < books.get(i).getNumberOfPages() + books.get(j).getNumberOfPages())) {
+                    if (firstBook==null || sum > max || ( sum == max && firstBook.getNumberOfPages() + secondBook.getNumberOfPages() < bookList.get(i).getNumberOfPages() + bookList.get(j).getNumberOfPages())) {
                         max = sum;
-                        firstBook=books.get(i);
-                        secondBook=books.get(j);
+                        firstBook=bookList.get(i);
+                        secondBook=bookList.get(j);
                     }
                 }
             }
         }
-        List<Book> chosenBooks=new ArrayList<>();
-        if(firstBook!=null){
+        if(firstBook!=null && secondBook!=null){
             chosenBooks.add(firstBook);
             chosenBooks.add(secondBook);
         }

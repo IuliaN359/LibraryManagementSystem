@@ -1,10 +1,10 @@
 public class Book {
     private String title;
     private String author;
-    private double price;
+    private int price;
     private int numberOfPages;
 
-    public Book(String title, String author, double price, int numberOfPages) {
+    public Book(String title, String author, int price, int numberOfPages) {
         this.title = title;
         this.author = author;
         this.price = price;
@@ -15,7 +15,7 @@ public class Book {
         return title;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
