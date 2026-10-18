@@ -46,7 +46,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.print("Maximaler Preis: ");
-                    double price=scanner.nextDouble();
+                    double price = scanner.nextDouble();
                     for (String title : library.filterBooks(price)) {
                         System.out.println(title);
                     }
@@ -64,16 +64,23 @@ public class Main {
                     break;
                 case 5:
                     System.out.print("Mindestanzahl: ");
-                    int numberOfPages=scanner.nextInt();
+                    int numberOfPages = scanner.nextInt();
                     for (String title : library.minimumNumberOfPages(numberOfPages)) {
                         System.out.println(title);
                     }
+                    break;
+                case 6:
+                    System.out.print("Budget: ");
+                    price = scanner.nextDouble();
+                    List<Book> array = library.validBooks(price);
+                    double sum = array.get(0).getPrice() + array.get(1).getPrice();
+                    System.out.println(array.get(0).getTitle() + " + " + array.get(1).getTitle() + "\nGesamtpreis: " + Double.toString(sum) + " Euro\n");
                     break;
                 case 0:
                     run = false;
                     break;
                 default:
-                    System.out.println("Invalid option4");
+                    System.out.println("Invalid option");
             }
         }
     }
