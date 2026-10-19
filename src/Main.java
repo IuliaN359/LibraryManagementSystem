@@ -24,6 +24,11 @@ public class Main {
             System.out.println("0. Exit");
             System.out.print("Option waehlen: ");
 
+            if(!scanner.hasNextInt()){
+                System.out.println("Ungueltige Eingabe");
+                scanner.nextLine();
+                continue;
+            }
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
