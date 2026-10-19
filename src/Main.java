@@ -14,14 +14,15 @@ public class Main {
 
         boolean run = true;
         while (run) {
-            System.out.println("------Menu------");
-            System.out.println("1. All books of a certain author");
-            System.out.println("2. Average number of pages");
-            System.out.println("3. All books in a certain price range");
-            System.out.println("4. The most expensive book");
-            System.out.println("5. Books with a given minimum number of pages");
-            System.out.println("6. 2 books that fit the budget of a client");
-            System.out.print("Choose an option: ");
+            System.out.println("------ Menue ------");
+            System.out.println("1. Buecher eines Autors");
+            System.out.println("2. Durchschnittliche Seitenanzahl");
+            System.out.println("3. Buecher innerhalb eines Preislimits");
+            System.out.println("4. Teuerstes Buch");
+            System.out.println("5. Buecher mit einer Mindestseitenanzahl");
+            System.out.println("6. Zwei Buecher innerhalb eines Budgets");
+            System.out.println("0. Exit");
+            System.out.print("Option waehlen: ");
 
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -34,19 +35,20 @@ public class Main {
                     }
                     break;
                 case 2:
-                    List<Book> selectedBooks = readRows("Enter books for the average number of pages", scanner, library);
+                    List<Book> selectedBooks = readRows("Buchtitel fuer die durchschnittliche Seitenanzahl eingeben: ", scanner, library);
                     System.out.println(library.averagePageNumber(selectedBooks));
                     break;
                 case 3:
-                    System.out.print("Maximum price: ");
-                    int price = scanner.nextInt();
+                    System.out.print("Maximaler Preis: ");
+                    String input = scanner.nextLine();
+                    int price = Integer.parseInt(input.replaceAll("[^0-9]", ""));
                     for (Book book : library.filterBooksByPrice(library.getBooks(), price)) {
                         System.out.println(book.getTitle());
                     }
                     break;
                 case 4:
-                    selectedBooks=readRows("Enter books to find the most expensive one", scanner, library);
-                    Book mostExpensiveBook=library.mostExpensive(selectedBooks);
+                    selectedBooks=readRows("Buchtitel eingeben, um das teuerste Buch zu finden: ", scanner, library);
+                    Book mostExpensiveBook=library.mostExpensiveBook(selectedBooks);
                     if(mostExpensiveBook!=null){
                         System.out.println(mostExpensiveBook.getTitle());
                     }
@@ -55,31 +57,34 @@ public class Main {
                     }
                     break;
                 case 5:
-                    System.out.print("Minimal number: ");
-                    int numberOfPages = scanner.nextInt();
-                    for (Book book : library.minimumNumberOfPages(library.getBooks(), numberOfPages)) {
+                    System.out.print("Mindestseitenanzahl: ");
+                    input=scanner.nextLine();
+                    int numberOfPages = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+                    for (Book book : library.withMinimumNumberOfPages(library.getBooks(), numberOfPages)) {
                         System.out.println(book.getTitle());
                     }
                     break;
                 case 6:
                     System.out.print("Budget: ");
-                    price = scanner.nextInt();
-                    List<Book> array = library.validBooks(library.getBooks(), price);
-                    if(array.size()>=2) {
-                        int sum = array.get(0).getPrice() + array.get(1).getPrice();
-                        System.out.println(array.get(0).getTitle() + " + " + array.get(1).getTitle() + "\nGesamtpreis: " + sum + " Euro\n");
+                    input = scanner.nextLine();
+                    price = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+                    List<Book> bookList = library.validBooks(library.getBooks(), price);
+                    if(bookList.size()>=2) {
+                        int sum = bookList.get(0).getPrice() + bookList.get(1).getPrice();
+                        System.out.println(bookList.get(0).getTitle() + " + " + bookList.get(1).getTitle() + "\nGesamtpreis: " + sum + " Euro\n");
                     }
                     else{
-                        System.out.println("No two books found within the budget");
+                        System.out.println("Keine zwei passenden Buecher innerhalb des Budgets gefunden");
                     }
                     break;
                 case 0:
                     run = false;
                     break;
                 default:
-                    System.out.println("Invalid option");
+                    System.out.println("Ungueltige Eingabe");
             }
         }
+        scanner.close();
     }
      public static List<Book> readRows(String msg, Scanner scanner, Library library){
          System.out.println(msg);

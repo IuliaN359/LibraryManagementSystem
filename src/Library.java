@@ -28,7 +28,7 @@ public class Library {
     }
 
     public double averagePageNumber(List<Book> bookList) {
-        if (bookList.isEmpty())
+        if (bookList==null || bookList.isEmpty() )
             return 0.0;
         int pagesSum = 0;
         for (Book book : bookList) {
@@ -51,8 +51,8 @@ public class Library {
         return withinPrice;
     }
 
-    public Book mostExpensive(List<Book> bookList) {
-        if (bookList.isEmpty()){
+    public Book mostExpensiveBook(List<Book> bookList) {
+        if (bookList==null || bookList.isEmpty()){
             return null;
         }
         Book mostExpensiveBook=bookList.get(0);
@@ -65,7 +65,7 @@ public class Library {
         return mostExpensiveBook;
     }
 
-    public List<Book> minimumNumberOfPages(List<Book> bookList, int numberOfPages) {
+    public List<Book> withMinimumNumberOfPages(List<Book> bookList, int numberOfPages) {
         List<Book> withMinimumPages=new ArrayList<>();
         if(bookList==null){
             return withMinimumPages;
